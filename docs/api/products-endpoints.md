@@ -58,10 +58,10 @@ All errors use the same body: `{ "error": "message", "details": ["..."] }`. In t
 [
   {
     "id": 1,
-    "name": "Agua 600 ml",
-    "price": 2500,
+    "name": "Agua mineral 600 ml",
+    "price": 1800,
     "category": "Bebidas",
-    "stock": 12
+    "stock": 120
   }
 ]
 ```
@@ -99,10 +99,10 @@ Note: the app calls `getProducts()` without filters and filters in memory with `
 ```json
 {
   "id": 1,
-  "name": "Agua 600 ml",
-  "price": 2500,
+  "name": "Agua mineral 600 ml",
+  "price": 1800,
   "category": "Bebidas",
-  "stock": 12
+  "stock": 120
 }
 ```
 
