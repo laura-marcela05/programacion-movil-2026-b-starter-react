@@ -60,7 +60,7 @@ Specs: [lista-productos.md](../screens/lista-productos.md) · [detalle-producto.
 - [x] Loading: spinner while the request is running (list, detail, and form in edit mode).
 - [x] Empty: the API has no products (list).
 - [x] No results: search or category filter matches nothing (list).
-- [x] Error / retry: network or server error, with a «Reintentar» button (list); error message (detail and form).
+- [x] Error / retry: network or server error, with a «Reintentar» button (list and detail); error message (form).
 - [x] Not found: the id does not exist (detail and edit form), shown with the server message.
 - [ ] Offline: N/A. There is no local cache; without network the request fails and the normal error state is shown.
 - [ ] Permission denied: N/A. The app has no authentication.
