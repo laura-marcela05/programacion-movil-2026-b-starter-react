@@ -1,8 +1,8 @@
 /**
  * Capa DATA: cliente HTTP de la API de productos (server/app.js).
  *
- * `request` y `getProducts` YA ESTÁN RESUELTOS como ejemplo del patrón. El resto de las
- * funciones se escriben en la Parte 3 del TODO.md, replicando ese patrón.
+ * `request` y `getProducts` vinieron resueltos como ejemplo del patrón; el resto de las
+ * funciones (`getProduct`, `createProduct`, `updateProduct`, `deleteProduct`) lo replica.
  */
 import type { Product, ProductInput } from "../domain/product";
 import { ApiError } from "./api-error";

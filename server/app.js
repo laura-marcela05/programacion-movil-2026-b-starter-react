@@ -21,8 +21,7 @@
  *   - parseId(): convierte el parámetro `:id` en número, o devuelve null si no es numérico.
  *   - Manejador 404 (ruta desconocida) y manejador de errores central (500).
  *
- * QUÉ SE ESCRIBE (Parte 2 del TODO.md): las cinco rutas de /api/products. Hoy responden
- * 501 (stub) y deben reemplazarse por la lógica real.
+ * QUÉ SE ESCRIBIÓ (Parte 2): las cinco rutas de /api/products, con validación, filtros y errores.
  */
 const express = require("express");
 const cors = require("cors");
@@ -128,21 +127,17 @@ function createApp() {
   app.put("/api/products/:id", (req, res) => {
     const id = parseId(req.params.id);
     if (id === null || id < 1) {
-      return res
-        .status(400)
-        .json({
-          error: "Id inválido",
-          details: ["El id debe ser un número entero positivo"],
-        });
+      return res.status(400).json({
+        error: "Id inválido",
+        details: ["El id debe ser un número entero positivo"],
+      });
     }
     const index = products.findIndex((item) => item.id === id);
     if (index === -1) {
-      return res
-        .status(404)
-        .json({
-          error: "Producto no encontrado",
-          details: [`No existe un producto con id ${id}`],
-        });
+      return res.status(404).json({
+        error: "Producto no encontrado",
+        details: [`No existe un producto con id ${id}`],
+      });
     }
     const details = validateProduct(req.body);
     if (details.length > 0) {
@@ -157,21 +152,17 @@ function createApp() {
   app.delete("/api/products/:id", (req, res) => {
     const id = parseId(req.params.id);
     if (id === null || id < 1) {
-      return res
-        .status(400)
-        .json({
-          error: "Id inválido",
-          details: ["El id debe ser un número entero positivo"],
-        });
+      return res.status(400).json({
+        error: "Id inválido",
+        details: ["El id debe ser un número entero positivo"],
+      });
     }
     const index = products.findIndex((item) => item.id === id);
     if (index === -1) {
-      return res
-        .status(404)
-        .json({
-          error: "Producto no encontrado",
-          details: [`No existe un producto con id ${id}`],
-        });
+      return res.status(404).json({
+        error: "Producto no encontrado",
+        details: [`No existe un producto con id ${id}`],
+      });
     }
     products.splice(index, 1);
     return res.status(204).end();
