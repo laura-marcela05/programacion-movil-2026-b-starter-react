@@ -46,7 +46,7 @@ The product is requested again each time the screen is entered (`useIonViewWillE
 
 | User action         | Result                                                   | Function / event                 |
 | ------------------- | -------------------------------------------------------- | -------------------------------- |
-| Tap «Editar»        | Go to `/productos/:id/editar`                            | `history.push`                   |
+| Tap «Editar»        | Go to `/productos/:id/editar`                            | `routerLink`                     |
 | Tap «Eliminar»      | Show the confirmation on screen                          | local boolean `confirmingDelete` |
 | Tap «Cancelar»      | Hide the confirmation                                    | local boolean `confirmingDelete` |
 | Tap «Confirmar»     | Product is deleted and the app goes back to `/productos` | `deleteProduct` + `history.push` |

@@ -32,7 +32,7 @@ The user sees all products, searches by name, filters by category, opens a produ
 | Loaded     | Request ok and at least one product matches the filters        | Search, category buttons and the list of `ProductCard`                                                                                 |
 | Empty      | Request ok and the API returns 0 products                      | `EmptyState`: «No hay productos» / «Crea el primero con el botón "Nuevo producto".»                                                    |
 | No results | Request ok, there are products, but `filterProducts` returns 0 | `EmptyState`: «Sin resultados» / «Ningún producto coincide con la búsqueda o la categoría.» (search and category buttons stay visible) |
-| Error      | Request failed (network or server)                             | Message from `getErrorMessage(error)` + button «Reintentar»                                                                            |
+| Error      | Request failed (network or server)                             | Title «No se pudo cargar», the message from `getErrorMessage(error)` and button «Reintentar»                                           |
 | Offline    | N/A                                                            | No cache; losing the connection is just the Error state                                                                                |
 
 Transitions: `loading → loaded | empty | no results | error`; `error → loading` with «Reintentar». The list reloads each time the screen is entered (`useIonViewWillEnter`).
