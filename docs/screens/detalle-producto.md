@@ -38,6 +38,8 @@ The user sees all the fields of one product, can go to the edit form, and can de
 
 Transitions: `loading → loaded | error | not found`; `loaded → confirming → deleting → back to /productos`; `confirming → loaded` with «Cancelar»; `deleting → delete error` if it fails. If the id in the route is not a valid number, the server answers 400 and the Error state is shown with its message.
 
+The product is requested again each time the screen is entered (`useIonViewWillEnter`), so it shows fresh data after an edit.
+
 ---
 
 ## Actions
