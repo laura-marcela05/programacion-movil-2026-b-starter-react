@@ -18,6 +18,7 @@ Requisito: Node.js 22.12 o superior (`node --version`).
 
 ```bash
 npm install        # instala dependencias (una sola vez)
+cp .env.example .env   # crea tu .env (en PowerShell, cp también funciona)
 npm run server     # arranca la API en http://localhost:3000
 npm run dev        # arranca la app en http://localhost:5173 (en otra terminal)
 npm test           # corre las pruebas (Vitest)
@@ -27,30 +28,30 @@ npm run build      # revisión de tipos y compilación para producción
 
 La app y la API se ejecutan al mismo tiempo, cada una en su terminal. La app lee la dirección de la API de la variable `VITE_API_URL`: copie `.env.example` como `.env` si necesita cambiarla. El archivo `.env` está ignorado por Git; nunca se versiona.
 
-Rutas de la app, ya creadas como pantallas esqueleto: `/productos` (lista), `/productos/nuevo`, `/productos/:id` (detalle) y `/productos/:id/editar`.
+Rutas de la app: `/productos` (lista), `/productos/nuevo`, `/productos/:id` (detalle) y `/productos/:id/editar`.
 
-Hoy la API responde `501 Not implemented` en cada ruta de `/api/products`, y las pantallas muestran un `TODO`. Construir esa funcionalidad es el trabajo del parcial.
+La API implementa los cinco endpoints de `/api/products` con validación, filtros y errores, y la app permite listar, buscar, filtrar por categoría, ver el detalle, crear, editar y eliminar productos.
 
 ## Flujo de entrega
 
 1. Haga un **fork** de este repositorio a su cuenta de GitHub y clónelo.
-2. Cree una rama de funcionalidad: `git switch -c feature/productos`.
+2. Cree una rama de funcionalidad: `git switch -c feature/catalogo-productos`.
 3. Trabaje la lista de [TODO.md](./TODO.md), en orden, con commits pequeños en formato [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): resumen` (por ejemplo, `docs(productos): describe la funcionalidad` o `feat(api): agrega el endpoint de lista`).
 4. Los documentos de `docs/` van **antes** que el código: el primer commit de código debe ser posterior al commit de documentación.
 5. Abra un **Pull Request hacia el `main` de su propio fork** (no hacia el repositorio original), con una descripción de lo hecho y el checklist de `docs/definition-of-done.md` marcado.
-6. Pegue el **enlace del PR** en la actividad de Moodle (texto en línea) antes del cierre: sábado 10 de octubre de 2026, 11:59 p. m.
+6. Pegue el **enlace del PR** en la actividad de Moodle (texto en línea) antes del cierre: lunes 12 de octubre de 2026, 11:59 p. m.
 
 ## Qué se evalúa (5,0)
 
-| Parte | Puntos |
-|---|---|
-| 1. Documentar antes de codificar | 0,75 |
-| 2. API Express | 1,0 |
-| 3. App Ionic | 1,5 |
-| 4. Kotlin | 0,5 |
-| 5. Calidad | 0,5 |
-| 6. Git y entrega | 0,25 |
-| 7. Inglés | 0,5 |
+| Parte                            | Puntos |
+| -------------------------------- | ------ |
+| 1. Documentar antes de codificar | 0,75   |
+| 2. API Express                   | 1,0    |
+| 3. App Ionic                     | 1,5    |
+| 4. Kotlin                        | 0,5    |
+| 5. Calidad                       | 0,5    |
+| 6. Git y entrega                 | 0,25   |
+| 7. Inglés                        | 0,5    |
 
 El detalle de cada criterio está en [TODO.md](./TODO.md).
 
@@ -58,13 +59,13 @@ El detalle de cada criterio está en [TODO.md](./TODO.md).
 
 Recurso `/api/products` con `{ id: number, name: string, price: number, category: string, stock: integer }`. Los datos semilla están en `server/data/products.json` y se guardan en memoria (se reinician al reiniciar el servidor).
 
-| Método y ruta | Éxito | Errores |
-|---|---|---|
-| `GET /api/products?search=&category=` | 200 + arreglo | — |
-| `GET /api/products/:id` | 200 + objeto | 400 (id no numérico) · 404 |
-| `POST /api/products` | 201 + objeto creado | 400 |
-| `PUT /api/products/:id` | 200 + objeto actualizado | 400 · 404 |
-| `DELETE /api/products/:id` | 204 sin cuerpo | 400 · 404 |
+| Método y ruta                         | Éxito                    | Errores                    |
+| ------------------------------------- | ------------------------ | -------------------------- |
+| `GET /api/products?search=&category=` | 200 + arreglo            | —                          |
+| `GET /api/products/:id`               | 200 + objeto             | 400 (id no numérico) · 404 |
+| `POST /api/products`                  | 201 + objeto creado      | 400                        |
+| `PUT /api/products/:id`               | 200 + objeto actualizado | 400 · 404                  |
+| `DELETE /api/products/:id`            | 204 sin cuerpo           | 400 · 404                  |
 
 Validación: `name` obligatorio (máximo 60 caracteres), `price` número mayor que 0, `category` una de `Bebidas`, `Snacks`, `Aseo` o `Hogar`, y `stock` entero mayor o igual que 0. Todo error usa el formato `{ "error": "mensaje", "details": ["..."] }`; una ruta desconocida responde 404 con ese formato, y un error inesperado, 500.
 
@@ -73,9 +74,9 @@ Validación: `name` obligatorio (máximo 60 caracteres), `price` número mayor q
 ```text
 docs/                         plantillas del framework (se copian y se llenan)
   features/ screens/ decisions/ api/ definition-of-done.md
-kotlin/Product.kt             ejercicio Kotlin (esqueleto)
+kotlin/Product.kt             ejercicio Kotlin (Product, stockLabel, applyDiscount)
 server/
-  app.js                      createApp(): rutas de la API (stubs 501) + piezas ya dadas
+  app.js                      createApp(): rutas de la API + piezas ya dadas
   index.js                    arranque en el puerto 3000
   data/products.json          8 productos semilla
 src/app/                      arranque, rutas y tema
@@ -98,9 +99,13 @@ Para concentrar el parcial en lo trabajado en clase, algunas piezas vienen hecha
 - **Presentación:** `EmptyState` como modelo de componente con props tipadas; el esqueleto de la lista (carga con `useEffect` e `IonItem`/`IonLabel`) y el campo `IonInput` del formulario.
 - **Pruebas:** el helper `startTestServer()` y un ejemplo de prueba de la API.
 
-## Entrega: secciones de este README
+## State management decision
 
-Al terminar, agregue aquí abajo las dos secciones escritas en inglés (3 a 5 frases cada una) que indica la Parte 7 de [TODO.md](./TODO.md): **State management decision** y **API error handling**. También actualice este README con cualquier paso adicional necesario para ejecutar su versión.
+Each page keeps its own state with `useState` and `useEffect`. We chose this because the app is small and no data is shared between screens. The list loads again every time the user comes back to it, so it always shows fresh data. We did not use a global store or a custom hook because they would add code we do not need. If the app grew, we would move the repeated loading code into a custom hook or use a store.
+
+## API error handling
+
+The API always answers errors with the same JSON body: an error message and a list of details. In the app, `ApiError` tells two cases apart: a network error has status `null`, and a response that is not successful has the status code and the server details. An unknown route gets a 404 from the handler that came with the starter, a broken JSON body gets a 400, and any other unexpected error gets a 500 from the central handler. The user sees a clear message from `getErrorMessage`, and the form also shows each detail sent by the server. The test `unknownRoute_whenRequested_returns404FromGivenHandler` shows the 404 handler working.
 
 ---
 
