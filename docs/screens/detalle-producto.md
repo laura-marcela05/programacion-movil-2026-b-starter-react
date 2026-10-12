@@ -44,14 +44,14 @@ The product is requested again each time the screen is entered (`useIonViewWillE
 
 ## Actions
 
-| User action         | Result                                                   | Function / event                 |
-| ------------------- | -------------------------------------------------------- | -------------------------------- |
-| Tap «Editar»        | Go to `/productos/:id/editar`                            | `routerLink`                     |
-| Tap «Eliminar»      | Show the confirmation on screen                          | local boolean `confirmingDelete` |
-| Tap «Cancelar»      | Hide the confirmation                                    | local boolean `confirmingDelete` |
-| Tap «Confirmar»     | Product is deleted and the app goes back to `/productos` | `deleteProduct` + `history.push` |
-| Tap «Reintentar»    | Product is requested again                               | `getProduct`                     |
-| Tap the back button | Go to `/productos`                                       | `IonBackButton`                  |
+| User action         | Result                                                   | Function / event                   |
+| ------------------- | -------------------------------------------------------- | ---------------------------------- |
+| Tap «Editar»        | Go to `/productos/:id/editar`                            | `routerLink`                       |
+| Tap «Eliminar»      | Show the confirmation on screen                          | local boolean `isConfirmingDelete` |
+| Tap «Cancelar»      | Hide the confirmation                                    | local boolean `isConfirmingDelete` |
+| Tap «Confirmar»     | Product is deleted and the app goes back to `/productos` | `deleteProduct` + `history.push`   |
+| Tap «Reintentar»    | Product is requested again                               | `getProduct`                       |
+| Tap the back button | Go to `/productos`                                       | `IonBackButton`                    |
 
 ---
 
