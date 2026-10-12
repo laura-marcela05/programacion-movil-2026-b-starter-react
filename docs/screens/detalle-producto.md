@@ -32,7 +32,7 @@ The user sees all the fields of one product, can go to the edit form, and can de
 | Confirming   | User taps «Eliminar»               | Question «¿Eliminar este producto?» with «Confirmar» and «Cancelar»; the fields stay visible                   |
 | Deleting     | User taps «Confirmar»              | `deleteProduct(id)` in flight; confirmation buttons disabled                                                   |
 | Error        | Request failed (network or server) | Message from `getErrorMessage(error)` + button «Reintentar»                                                    |
-| Not found    | Server answers 404                 | Message from `getErrorMessage(error)` («Producto no encontrado»); no «Reintentar», only the back button        |
+| Not found    | Server answers 404                 | Message from `getErrorMessage(error)` («No encontramos ese producto.»); no «Reintentar», only the back button  |
 | Delete error | `deleteProduct` fails              | Message from `getErrorMessage(error)` under the buttons; the confirmation closes and the product stays visible |
 | Offline      | N/A                                | No cache; losing the connection is just the Error state                                                        |
 

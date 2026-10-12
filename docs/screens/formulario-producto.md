@@ -60,7 +60,7 @@ Inline behavior: the message appears under its field when the user taps «Guarda
 | Invalid      | «Guardar» with invalid data           | Validation messages under each wrong field; no request                                                                      |
 | Saving       | Valid data sent                       | «Guardar» disabled while the request runs                                                                                   |
 | Server error | Server answers 400 (or another error) | Message from `getErrorMessage(error)` and, if the error has `details`, one line per detail; the form keeps the typed values |
-| Not found    | Edit mode and the server answers 404  | Message from `getErrorMessage(error)` («Producto no encontrado») instead of the form                                        |
+| Not found    | Edit mode and the server answers 404  | Message from `getErrorMessage(error)` («No encontramos ese producto.») instead of the form                                  |
 | Offline      | N/A                                   | No cache; losing the connection is just a Server error with the network message                                             |
 
 ---
