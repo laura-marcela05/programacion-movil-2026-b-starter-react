@@ -38,7 +38,7 @@ const ProductDetailPage: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [status, setStatus] = useState<LoadStatus>("loading");
   const [errorMessage, setErrorMessage] = useState("");
-  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
   const isLoadingRef = useRef(false);
@@ -47,7 +47,7 @@ const ProductDetailPage: React.FC = () => {
     if (isLoadingRef.current) return; // evita pedir el producto dos veces a la vez
     isLoadingRef.current = true;
     setStatus("loading");
-    setConfirmingDelete(false);
+    setIsConfirmingDelete(false);
     setDeleteError("");
     try {
       setProduct(await getProduct(productId));
@@ -80,7 +80,7 @@ const ProductDetailPage: React.FC = () => {
       history.push("/productos");
     } catch (error) {
       setDeleteError(getErrorMessage(error));
-      setConfirmingDelete(false);
+      setIsConfirmingDelete(false);
     } finally {
       setIsDeleting(false);
     }
@@ -166,14 +166,14 @@ const ProductDetailPage: React.FC = () => {
                 color="danger"
                 onClick={() => {
                   setDeleteError("");
-                  setConfirmingDelete(true);
+                  setIsConfirmingDelete(true);
                 }}
               >
                 Eliminar
               </IonButton>
             </div>
 
-            {confirmingDelete && (
+            {isConfirmingDelete && (
               <div className="ion-padding-top">
                 <IonText>
                   <p>¿Eliminar este producto?</p>
@@ -188,7 +188,7 @@ const ProductDetailPage: React.FC = () => {
                 <IonButton
                   fill="outline"
                   disabled={isDeleting}
-                  onClick={() => setConfirmingDelete(false)}
+                  onClick={() => setIsConfirmingDelete(false)}
                 >
                   Cancelar
                 </IonButton>

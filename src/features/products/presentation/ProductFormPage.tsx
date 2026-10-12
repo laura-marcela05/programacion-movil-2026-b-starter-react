@@ -50,7 +50,7 @@ const ProductFormPage: React.FC = () => {
     isEditing ? "loading" : "ready",
   );
   const [loadError, setLoadError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [serverError, setServerError] = useState<ServerError | null>(null);
 
@@ -82,10 +82,10 @@ const ProductFormPage: React.FC = () => {
     stock: toNumber(stockText),
   };
   const validation = validateProduct(input);
-  const errors = submitted ? validation.errors : {};
+  const errors = hasSubmitted ? validation.errors : {};
 
   const handleSave = async () => {
-    setSubmitted(true);
+    setHasSubmitted(true);
     setServerError(null);
     if (!validation.isValid) return;
 
