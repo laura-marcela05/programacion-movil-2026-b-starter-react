@@ -1,12 +1,12 @@
 /**
  * Capa DATA: cliente HTTP de la API de productos (server/app.js).
  *
- * `request` y `getProducts` YA ESTÁN RESUELTOS como ejemplo del patrón. El resto de las
- * funciones se escriben en la Parte 3 del TODO.md, replicando ese patrón.
+ * `request` y `getProducts` vinieron resueltos como ejemplo del patrón; el resto de las
+ * funciones (`getProduct`, `createProduct`, `updateProduct`, `deleteProduct`) lo replica.
  */
-import type { Product, ProductInput } from '../domain/product';
-import { ApiError } from './api-error';
-import { API_URL } from './config';
+import type { Product, ProductInput } from "../domain/product";
+import { ApiError } from "./api-error";
+import { API_URL } from "./config";
 
 /**
  * YA DADO. Hace una petición a la API y devuelve el cuerpo JSON ya convertido.
@@ -20,12 +20,16 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     response = await fetch(`${API_URL}${path}`, init);
   } catch {
-    throw new ApiError('No fue posible conectar con el servidor.', null);
+    throw new ApiError("No fue posible conectar con el servidor.", null);
   }
 
   if (!response.ok) {
     const body = await response.json().catch(() => null);
-    throw new ApiError(body?.error ?? `Error ${response.status}`, response.status, body?.details ?? []);
+    throw new ApiError(
+      body?.error ?? `Error ${response.status}`,
+      response.status,
+      body?.details ?? [],
+    );
   }
 
   if (response.status === 204) {
@@ -40,38 +44,45 @@ export interface ProductQuery {
 }
 
 /** YA DADO (ejemplo): GET /api/products?search=&category= */
-export async function getProducts(query: ProductQuery = {}): Promise<Product[]> {
+export async function getProducts(
+  query: ProductQuery = {},
+): Promise<Product[]> {
   const params = new URLSearchParams();
-  if (query.search) params.set('search', query.search);
-  if (query.category) params.set('category', query.category);
+  if (query.search) params.set("search", query.search);
+  if (query.category) params.set("category", query.category);
   const queryString = params.toString();
-  return request<Product[]>(`/api/products${queryString ? `?${queryString}` : ''}`);
+  return request<Product[]>(
+    `/api/products${queryString ? `?${queryString}` : ""}`,
+  );
 }
 
-/** TODO(Parte 3): GET /api/products/:id — siga el patrón de `getProducts`. */
+/** GET /api/products/:id */
 export async function getProduct(id: number): Promise<Product> {
-  void id;
-  throw new ApiError('TODO(Parte 3): falta implementar getProduct.', null);
+  return request<Product>(`/api/products/${id}`);
 }
 
-/**
- * TODO(Parte 3): POST /api/products — cuerpo JSON con el producto.
- * Pista: request<Product>('/api/products', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) })
- */
+/** POST /api/products: cuerpo JSON con el producto (el id lo asigna el servidor). */
 export async function createProduct(input: ProductInput): Promise<Product> {
-  void input;
-  throw new ApiError('TODO(Parte 3): falta implementar createProduct.', null);
+  return request<Product>("/api/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  });
 }
 
-/** TODO(Parte 3): PUT /api/products/:id — igual que createProduct, con method 'PUT' y el id en la ruta. */
-export async function updateProduct(id: number, input: ProductInput): Promise<Product> {
-  void id;
-  void input;
-  throw new ApiError('TODO(Parte 3): falta implementar updateProduct.', null);
+/** PUT /api/products/:id: reemplaza el producto completo y conserva el id. */
+export async function updateProduct(
+  id: number,
+  input: ProductInput,
+): Promise<Product> {
+  return request<Product>(`/api/products/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  });
 }
 
-/** TODO(Parte 3): DELETE /api/products/:id — request<void>(`/api/products/${id}`, { method: 'DELETE' }) */
+/** DELETE /api/products/:id: responde 204 sin cuerpo (request devuelve undefined). */
 export async function deleteProduct(id: number): Promise<void> {
-  void id;
-  throw new ApiError('TODO(Parte 3): falta implementar deleteProduct.', null);
+  return request<void>(`/api/products/${id}`, { method: "DELETE" });
 }
