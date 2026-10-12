@@ -5,9 +5,8 @@
  * Solo tipos, constantes y funciones puras: aquí no hay HTTP, ni React, ni Ionic
  * (regla de dependencias del framework: el dominio no depende de nada de afuera).
  *
- * Los tipos, las constantes y `formatCOP` ya vienen dados. Las tres funciones
- * `toProductView`, `validateProduct` y `filterProducts` son STUBS: se implementan
- * en la Parte 3 del TODO.md.
+ * Los tipos, las constantes y `formatCOP` vinieron dados; las tres funciones
+ * `toProductView`, `validateProduct` y `filterProducts` se implementaron en la Parte 3.
  */
 
 /** Producto tal como lo entrega la API. */
