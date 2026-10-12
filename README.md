@@ -1,8 +1,8 @@
-# Catálogo de productos · Starter Ionic React (versión 2)
+# Catálogo de productos · Ionic React + Express + Kotlin
 
 Parcial práctico del corte 2 · Programación Móvil · CORHUILA 2026-B (modalidad individual).
 
-Este repositorio es el punto de partida. El proyecto tiene tres piezas que se construyen durante el parcial, siguiendo el [Mobile Governance Framework](https://github.com/jesusarielgb-works/mobile-governance-framework):
+Este repositorio contiene mi solución del parcial. El proyecto tiene tres piezas que se construyen durante el parcial, siguiendo el [Mobile Governance Framework](https://github.com/jesusarielgb-works/mobile-governance-framework):
 
 - **API Express** (`server/`): CRUD de productos con validación, filtros y manejo de errores.
 - **App Ionic React** (`src/`): lista con búsqueda y filtro, detalle, y formulario de crear y editar, organizada por capas.
